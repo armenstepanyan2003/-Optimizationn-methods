@@ -1,0 +1,53 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Ֆունկցիա
+def f(x):
+    return x**3 + 3*x**2 - 9*x + 5
+
+# Տրված տվյալներ
+a = 0
+b = 4
+n = 8
+delta = (b - a) / n   # 0.5
+
+x_vals = []
+y_vals = []
+
+min_x = a
+min_f = f(a)
+
+print(f"{'Քայլ': <6} | {'x': <10} | {'f(x)': <10}")
+print("-" * 30)
+
+for i in range(n + 1):
+    x = a + i * delta
+    fx = f(x)
+
+    x_vals.append(x)
+    y_vals.append(fx)
+
+    print(f"{i: <6} | {x: <10.4f} | {fx: <10.4f}")
+
+    if fx < min_f:
+        min_f = fx
+        min_x = x
+
+print("-" * 30)
+print(f"Մինիմումը մոտավորապես գտնվում է x = {min_x}")
+print(f"f(x) = {min_f}")
+
+# --- Գրաֆիկ ---
+x_plot = np.linspace(a, b, 400)
+y_plot = f(x_plot)
+
+plt.figure()
+plt.plot(x_plot, y_plot)
+plt.scatter(x_vals, y_vals)
+plt.scatter(min_x, min_f)
+
+plt.title("Ընտրանքների եղանակով մինիմումի որոնում")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.grid(True)
+plt.show()
