@@ -28,7 +28,3 @@ The method divides the interval \([a, b]\) into equal segments and evaluates the
   \varepsilon = \frac{b - a}{n}
   \]
 
-
-## Visualization
-
-![Uniform Search](optimization_plot.png)
