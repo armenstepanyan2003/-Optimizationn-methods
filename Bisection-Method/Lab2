@@ -1,0 +1,65 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Ֆունկցիայի սահմանում
+def f(x):
+    return x**3 + 3*x**2 - 9*x + 5
+
+# 2. Տվյալներ
+a, b = 0, 4
+epsilon = 0.5
+delta = 0.125
+
+curr_a, curr_b = a, b
+step = 0
+
+history_x = []
+history_y = []
+
+print(f"{'Քայլ':<5} | {'a':<8} | {'b':<8} | {'b-a':<8} | {'x1':<8} | {'x2':<8}")
+print("-" * 65)
+
+# 3. Dichotomy ալգորիթմ
+while (curr_b - curr_a) >= epsilon:
+    step += 1
+    
+    center = (curr_a + curr_b) / 2
+    x1 = center - delta
+    x2 = center + delta
+
+    f1 = f(x1)
+    f2 = f(x2)
+
+    history_x.extend([x1, x2])
+    history_y.extend([f1, f2])
+
+    print(f"{step:<5} | {curr_a:<8.4f} | {curr_b:<8.4f} | {curr_b - curr_a:<8.4f} | {x1:<8.3f} | {x2:<8.3f}")
+
+    if f1 < f2:
+        curr_b = x2
+    else:
+        curr_a = x1
+
+# Վերջնական տող
+step += 1
+print(f"{step:<5} | {curr_a:<8.4f} | {curr_b:<8.4f} | {curr_b - curr_a:<8.4f} | {'-':<8} | {'-':<8}")
+
+x_min = (curr_a + curr_b) / 2
+print("-" * 65)
+print(f"Մինիմումը մոտավորապես x ≈ {x_min:.4f}")
+print(f"f(x) ≈ {f(x_min):.4f}")
+
+# 4. Գրաֆիկ
+x_plot = np.linspace(a, b, 1000)
+y_plot = f(x_plot)
+
+plt.figure()
+plt.plot(x_plot, y_plot)
+plt.scatter(history_x, history_y)
+plt.scatter(x_min, f(x_min), marker='*')
+
+plt.title("Հատվածի կիսման եղանակով մինիմում")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.grid(True)
+plt.show()
