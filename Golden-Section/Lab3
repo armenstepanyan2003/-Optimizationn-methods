@@ -5,19 +5,22 @@ import matplotlib.pyplot as plt
 def f(x):
     return x**3 + 3*x**2 - 9*x + 5
 
-# 2. Տվյալներ
+# 2. Սկզբնական տվյալներ
 a, b = 0, 4
 epsilon = 0.5
-t = 0.618  # ոսկե հարաբերություն
 
 curr_a, curr_b = a, b
+
+# Ոսկե հատույթի ճշգրիտ գործակիցներ
+t1 = (3 - np.sqrt(5)) / 2      # ≈ 0.381966
+t2 = (np.sqrt(5) - 1) / 2      # ≈ 0.618034
 
 history_x = []
 history_y = []
 
 # Սկզբնական կետեր
-x1 = curr_b - t * (curr_b - curr_a)
-x2 = curr_a + t * (curr_b - curr_a)
+x1 = curr_a + t1 * (curr_b - curr_a)
+x2 = curr_a + t2 * (curr_b - curr_a)
 
 f1 = f(x1)
 f2 = f(x2)
@@ -34,25 +37,26 @@ while (curr_b - curr_a) >= epsilon:
     history_x.extend([x1, x2])
     history_y.extend([f1, f2])
 
-    print(f"{step:<5} | {curr_a:<8.4f} | {curr_b:<8.4f} | {curr_b - curr_a:<8.4f} | {x1:<8.3f} | {x2:<8.3f}")
+    print(f"{step:<5} | {curr_a:<8.4f} | {curr_b:<8.4f} | {curr_b - curr_a:<8.4f} | {x1:<8.4f} | {x2:<8.4f}")
 
     if f1 <= f2:
         curr_b = x2
         x2 = x1
         f2 = f1
-        x1 = curr_b - t * (curr_b - curr_a)
+        x1 = curr_a + t1 * (curr_b - curr_a)
         f1 = f(x1)
     else:
         curr_a = x1
         x1 = x2
         f1 = f2
-        x2 = curr_a + t * (curr_b - curr_a)
+        x2 = curr_a + t2 * (curr_b - curr_a)
         f2 = f(x2)
 
-# Վերջնական քայլ
+# Վերջնական միջակայք
 step += 1
 print(f"{step:<5} | {curr_a:<8.4f} | {curr_b:<8.4f} | {curr_b - curr_a:<8.4f} | {'-':<8} | {'-':<8}")
 
+# Մոտավոր մինիմում
 x_star = (curr_a + curr_b) / 2
 
 print("-" * 65)
