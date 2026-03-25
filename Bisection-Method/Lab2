@@ -23,9 +23,9 @@ print("-" * 65)
 while (curr_b - curr_a) >= epsilon:
     step += 1
     
-    center = (curr_a + curr_b) / 2
-    x1 = center - delta
-    x2 = center + delta
+  
+    x1 = (curr_a + curr_b - delta) / 2
+    x2 = (curr_a + curr_b + delta) / 2
 
     f1 = f(x1)
     f2 = f(x2)
